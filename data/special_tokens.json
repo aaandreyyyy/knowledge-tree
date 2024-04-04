@@ -1,0 +1,108 @@
+{
+    "References": {
+        "REFERENCE_1": "S. Aghabozorgi, A. Seyed Shirkhorshidi, and T. Ying Wah, “Time-series clustering – a decade review,” Information Systems, vol. 53, pp. 16–38, 2015.",
+        "REFERENCE_2": "H. Kantz and T. Schreiber, Nonlinear Time Series Analysis, Cambridge University Press, Cambridge, UK, 2003.",
+        "REFERENCE_3": "G. G. Malinetskiy and A. B. Potapov, Modern Problems of Non-linear Dynamics, Editorial URSS, Moscow, Russia, 2002",
+        "REFERENCE_4": "B. P. Bezruchko and D. A. Smirnov, Extracting Knowledge from Time Series: An Introduction to Nonlinear Empirical Modeling, Springer-Verlag Berlin and Heidelberg GmbH & Co. KG, Berlin, Germany, 2010.",
+        "REFERENCE_5": "H. Blockeel, L. De Raedt, and J. Ramon, “Top-down induction of clustering trees,” 1998, https://arxiv.org/abs/cs/0011032.",
+        "REFERENCE_6": "V. A. Gromov and E. A. Borisenko, “Chaotic time series prediction & clustering methods,” Neural Computing & Applications, vol. 2, pp. 307–315, 2015.",
+        "REFERENCE_7": "V. A. Gromov, “Chaotic time series prediction: run for the horizon,” in Proceedings of International Conference on Software Testing, Machine Learning and Complex Process Analysis, Tbilisi, Georgia, November 2019.",
+        "REFERENCE_8": "S. Ben Taieb, A. Sorjamaa, and G. Bontempi, “Multiple-output modeling for multi-step-ahead time series forecasting,” Neurocomputing, vol. 73, no. 10-12, pp. 1950–1957, 2010.",
+        "REFERENCE_9": "Y. Bao, T. Xiong, and Z. Hu, “Multi-step-ahead time series prediction using multiple-output support vector regression,” Neurocomputing, vol. 129, pp. 482–493, 2014.",
+        "REFERENCE_10": "M. Sangiorgio and F. Dercole, “Robustness of LSTM neural networks for multi-step forecasting of chaotic time series,” Chaos, Solitons & Fractals, vol. 139, Article ID 110045, 2020.",
+        "REFERENCE_11": "R. Ye and Q. Dai, “MultiTL-KELM: a multi-task learning algorithm for multi-step-ahead time series prediction,” Ap- plied Soft Computing, vol. 79, pp. 227–253, 2019.",
+        "REFERENCE_12": "R. Chandra, Y.-S. Ong, and C.-K. Goh, “Co-evolutionary multi-task learning with predictive recurrence for multi- step chaotic time series prediction,” Neurocomputing, vol. 243, pp. 21–34, 2017.",
+        "REFERENCE_13": "F. Martinez-Alvarez, A. Troncoso, and J. C. Riquelme, “En- ergy time series forecasting based on pattern sequence sim- ilarity,” IEEE Transactions on Knowledge and Data Engineering, vol. 23, no. 8, pp. 1230–1243, 2011.",
+        "REFERENCE_14": "V. A. Gromov and A. N. Shulga, “Chaotic time series pre- diction with employment of ant colony optimization,” Expert Systems with Applications, vol. 39, no. 9, pp. 8474–8478, 2012.",
+        "REFERENCE_15": "V. A. Gromov and A. S. Konev, “Precocious identifcation of popular topics on Twitter with the employment of predictive clustering,” Neural Computing & Applications, vol. 28, no. 11, pp. 3317–3322, 2017.",
+        "REFERENCE_16": "V. A. Gromov, I. M. Voronin, V. R. Gatylo, and E. T. Prokopalo, “Active cluster replacement algorithm as a tool to assess bifurcation early-warning signs for von Karman equations,” Artifcial Intelligence Research, vol. 6, no. 2, pp. 51–56, 2017.",
+        "REFERENCE_17": "S. Kurogi, R. Shigematsu, and K. Ono, “Properties of direct multi-step ahead prediction of chaotic time series and out- of-bag estimate for model selection,” in Neural Information Processing, C. L. Kiong, K. Y. Siah, K. W. Wai, A. Teoh, and K. Huang, Eds., vol. 8835pp. 421–428, 2014.",
+        "REFERENCE_18": "W. Waheeb and R. Ghazali, “Multi-step time series fore- casting using Ridge polynomial neural network with error- output feedbacks,” in Communications in Computer and Information Science, M. W. Berry, A. H. Mohamed, and B. Y. Wah, Eds., vol. 652pp. 48–58, 2016.",
+        "REFERENCE_19": "P. Ong and Z. Zainuddin, “Optimizing wavelet neural net- works using modifed cuckoo search for multi-step ahead chaotic time series prediction,” Applied Soft Computing, vol. 80, pp. 374–386, 2019.",
+        "REFERENCE_20": "R. K. Guntu, P. K. Yeditha, M. Rathinasamy et al., “Wavelet entropy-based evaluation of intrinsic predictability of time series,” Chaos, vol. 30, no. 3, Article ID 033117, 2020.",
+        "REFERENCE_21": "R. Wang, C. Peng, J. Gao, Z. Gao, and H. Jiang, “A dilated convolution network-based LSTM model for multi-step prediction of chaotic time series,” Computational and Applied Mathematics, vol. 39, no. 1, 2019.",
+        "REFERENCE_22": "S. Ben Taieb, G. Bontempi, A. F. Atiya, and A. Sorjamaa, “A review and comparison of strategies for multi-step ahead time series forecasting based on the NN5 forecasting competition,” Expert Systems with Applications, vol. 39, no. 8, pp. 7067– 7083, 2012.",
+        "REFERENCE_23": "D. R. Cox, “Prediction by exponentially weighted moving averages and related methods,” Journal of the Royal Statistical Society: Series B, vol. 23, no. 2, pp. 414–422, 1961.",
+        "REFERENCE_24": "G. Bontempi, “Long term time series prediction with multi- input multi-output local learning,” Second European Sym- posium on Time Series Prediction, vol. 15, 2008.",
+        "REFERENCE_25": "M. Sangiorgio, F. Dercole, and G. Guariso, Deep Learning in Multi-step Prediction of Chaotic Dynamics, SpringerBriefs in Applied Sciences and Technology, Giorgio Guariso, 2022.",
+        "REFERENCE_26": "J. Pathak, B. Hunt, M. Girvan, Z. Lu, and E. Ott, “Model-free prediction of large spatiotemporally chaotic systems from data: a reservoir computing approach,” Physical Review Let- ters, vol. 120, no. 2, Article ID 024102, 2018.",
+        "REFERENCE_27": "H. Jaeger and H. Haas, “Harnessing nonlinearity: predicting chaotic systems and saving energy in wireless communica- tion,” Science, vol. 304, no. 5667, pp. 78–80, 2004.",
+        "REFERENCE_28": "D. Canaday, A. Grifth, and D. J. Gauthier, “Rapid time series prediction with A hardware-based reservoir computer,” Chaos, vol. 28, no. 12, Article ID 123119, 2018.",
+        "REFERENCE_29": "K. Wang, K. Li, L. Zhou et al., “Multiple convolutional neural networks for multivariate time series prediction,” Neuro- computing, vol. 360, pp. 107–119, 2019.",
+        "REFERENCE_30": "M. Sangiorgio, F. Dercole, and G. Guariso, “Forecasting of noisy chaotic systems with deep neural networks,” Chaos, Solitons & Fractals, vol. 153, Article ID 111570, 2021.",
+        "REFERENCE_31": "P. R. Vlachas, J. Pathak, B. R. Hunt et al., “Backpropagation algorithms and reservoir computing in recurrent neural networks for the forecasting of complex spatiotemporal dynamics,” Neural Networks, vol. 126, pp. 191–217, 2020.",
+        "REFERENCE_32": "D. Wishart, “Numerical classifcation method for deriving natural classes,” Nature, vol. 221, no. 5175, pp. 97-98, 1969.",
+        "REFERENCE_33": "H. H. Bock, Automatic Classifcation, Elsevier, Amsterdam, Netherlands, 1974.",
+        "REFERENCE_34": "A. V. Lapko and S. V. Chentsov, Nonparametric Information Processing Systems, Nauka, Novosibirsk, Russia, 2000.",
+        "REFERENCE_35": "C. C. Aggarval and C. K. Reddy, Data Clustering: Algorithms and Applications, CRC Press, Boca Raton, FL, USA, 2013.",
+        "REFERENCE_36": "N. V. Chawla, K. W. Bowyer, L. O. Hall, and W. P. Kegelmeyer, “SMOTE: synthetic minority oversampling technique,” Journal of Artifcial Intelligence Research, vol. 16, pp. 321–357, 2002.",
+        "REFERENCE_37": "D. Patel, D. Canaday, M. Girvan, A. Pomerance, and E. Ott, “Using machine learning to predict statistical properties of non-stationary dynamical processes: system climate, regime transitions, and the efect of stochasticity,” Chaos, vol. 31, no. 3, Article ID 033149, 2021.",
+        "REFERENCE_38": "V. A. Gromov and P. S. Baranov, “Prediction after a horizon of predictability,” Non-predictable Points and Partial Multi-step Prediction for Chaotic Time Series, vol. 20, 2020."
+    },
+    "Variables": {
+        "VARIABLE_": {
+            "Name": "",
+            "Description": ""
+        },
+        "VARIABLE_1": {
+            "Name": "\\lambda",
+            "Description": "highest Lyapunov exponent"
+        },
+        "VARIABLE_2": {
+            "Name": "\\epsilon(0)",
+            "Description": "observational error"
+        },
+        "VARIABLE_3": {
+            "Name": "\\epsilon_{max}",
+            "Description": "maximum prediction error"
+        },
+        "VARIABLE_4": {
+            "Name": "t",
+            "Description": "time"
+        }
+    },
+    "Functions": {
+        "FUNCTION_": {
+            "Depends": [
+            ],
+            "Letter" : "",
+            "Name": "",
+            "Description": ""
+        },
+        "FUNCTION_1": {
+            "Depends": [
+                "VARIABLE_1",
+                "VARIABLE_2",
+                "VARIABLE_4"
+            ],
+            "Letter" : "\\epsilon(t)",
+            "Name": "error at t",
+            "Description": "represents error at the moment t and \\lambda"
+        }
+    },
+    "Expressions": {
+        "EXPRESSION_1": {
+            "Depends": [
+                "VARIABLE_1",
+                "VARIABLE_4"
+            ],
+            "Name": "e1",
+            "Description": "d1",
+            "Tex": "x"
+        }
+    },
+    "Formulas": {
+        "FORMULA_": {
+            "Equasion type": "less",
+            "Left expression": "",
+            "Right expression": "",
+            "Description": ""
+        },
+        "FORMULA_1": {
+            "Equasion type": "significantly less",
+            "Left expression": "EXPRESSION_1",
+            "Right expression": "EXPRESSION_1",
+            "Description": "bebra"
+        }
+    }
+}

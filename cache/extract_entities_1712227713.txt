@@ -1,0 +1,28 @@
+{
+    "anaphors": [
+        ["chaotic time series", ["chaotic time series", 83]],
+        ["“generalized z-vectors”", ["generalized z-vector templates", 1370]],
+        ["concept of “nonpredictable” points", ["nonpredictable points", 549]],
+        ["multi-step-ahead prediction problem", ["multi-step-ahead prediction", 640]],
+        ["chaotic systems", ["chaotic time series", 778]],
+        ["chaotic time series forecasting algorithms", ["chaotic systems", 760]],
+        ["one-step-ahead prediction", ["one-step-ahead", 807]],
+        ["multi-step-ahead prediction", ["multi-step-ahead", 834]],
+        ["average prediction error", ["average prediction error", 881]],
+        ["prediction horizon", ["prediction horizon", 901]],
+        ["lyapunov instability", ["lyapunov instability", 955]],
+        ["horizon of predictability", ["horizon of predictability", 978]],
+        ["highest lyapunov exponent", ["highest lyapunov exponent", 997]],
+        ["lyapunov time", ["horizon of predictability", 978]],
+        ["observational error", ["observational error", 1032]],
+        ["maximum prediction error", ["maximum prediction error", 1052]],
+        ["prediction horizon", ["prediction horizon", 1117]],
+        ["horizon of predictability", ["horizon of predictability", 1134]],
+        ["average prediction error", ["average prediction error", 1176]],
+        ["predictive clustering approach", ["predictive clustering", 1198]],
+        ["exponential growth of the average prediction error", ["exponential growth of the average prediction error", 1225]],
+        ["motifs", ["motifs", 1272]],
+        ["predictive clustering", ["motifs", 1308]],
+        ["local prediction models", ["motifs", 1308]]
+    ]
+}

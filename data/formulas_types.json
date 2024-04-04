@@ -1,0 +1,17 @@
+{
+    "Specific types": {
+        "TYPE1": "equals",
+        "TYPE2": "less",
+        "TYPE3": "less or equals",
+        "TYPE4": "greater",
+        "TYPE5": "greater or equals",
+        "TYPE6": "roughly equals",
+        "TYPE7": "not equals",
+        "TYPE8": "approximates"
+    },
+    "Broad types": {
+        "TYPE1": "equality",
+        "TYPE2": "inequeality",
+        "TYPE3": "approximation"
+    }
+}

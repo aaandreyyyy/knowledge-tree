@@ -1,0 +1,10 @@
+{
+    "anaphors": [
+        ["“generalized z-vectors”", ["vectors of nonsuccessive time series observations", 152]],
+        ["“generalized z-vector templates", ["generalized z-vectors", 1370]],
+        ["multi-step-ahead prediction problem", ["multy-step-ahead prediction,", 640]],
+        ["average prediction error", ["exponential growth of the average prediction error", 1225]],
+        ["horizon of predictability", ["lyapunov time", 1008]],
+        ["highest lyapunov exponent", ["lyapunov exponent", 997]]
+    ]
+}

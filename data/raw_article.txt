@@ -1,0 +1,79 @@
+This paper introduces several novel strategies for multi-step-ahead
+prediction of chaotic time series. Introducing a concept of
+“generalized z-vectors” (vectors of nonsuccessive time series
+observations) makes it possible to generate sets of possible
+prediction values for each point we are trying to predict.
+Through examining these sets, unifed predictions are calculated,
+which are in turn used as a basis for predicting subsequent points.
+The key diference between the strategy presented in this paper and
+its conventional counterparts is the concept of
+“nonpredictable” points (points which the algorithm categorized
+as “incalculable” and excluded from the calculations altogether).
+The results obtained for the benchmark and real-world time
+series indicate that while typically the number of nonpredictable points
+tends to grow exponentially with the number of steps ahead
+to be predicted, the average error for predicted points remains
+small and nearly constant. Thus, we redefine the problem of
+multi-step-ahead prediction as a two-objective optimization
+problem: on one hand, we aim to minimize the number of nonpredictable
+points and the average error among the predictable ones.
+The resulting strategy demonstrates accurate results for both
+benchmark and real-world time series, with the number of predicted
+steps exceeding that of any other published algorithm.
+Introduction
+There are countless examples of chaotic systems in the world,
+which is evidenced by the constantly increasing number of chaotic
+time series forecasting algorithms. However, while those dealing
+with one-step-ahead prediction demonstrate remarkable eficiency
+REFERENCE_1, their multi-step-ahead prediction counterparts are
+still in their infancy. This may be attributed to the exponential growth
+of an average prediction error with increasing prediction horizon
+(the number of steps ahead to be predicted).
+This exponential growth refects Lyapunov instability,
+inherent to any chaotic system. According to the defnition of Lyapunov
+instability, any initial diference between any two neighboring
+trajectories, however small, grows exponentially over time; its
+exponent equals to the highest Lyapunov exponent VARIABLE_1 REFERENCE_2 REFERENCE_3.
+Lyapunov instability leads to another concept, that of the horizon
+of predictability, sometimes referred to as “Lyapunov time” REFERENCE_4.
+For a given observational error VARIABLE_2 and the maximum
+prediction error VARIABLE_3, the aforementioned exponential growth satisfes
+the constraint FORMULA_1, where FUNCTION_1 represents error at the
+moment VARIABLE_4 and VARIABLE_1, the highest Lyapunov exponent (which is positive
+for chaotic time series and negative for the non- chaotic ones).
+ε(t) ≤ εmax gives an estimated horizon of predictability
+T ∼ 1/λ lnεmax /ε(0) [2, 3]. In the context of the multi-step-ahead
+prediction, it follows that the smallest diference between true and
+predicted values at any in- termediate position between the last
+observable point and the point to be predicted triggers an exponential
+error growth in all subsequent points, regardless of the employed
+prediction method. It should be noted that the horizon of predictability should
+not be confused with the prediction horizon, the former being
+a theoretical upper boundary for the number of steps to be predicted
+(given ε(0) and εmax), and the latter being simply the number steps to
+be predicted. Most of the time, the prediction horizon h is signifcantly
+less than the horizon of predictability T: h ≪ T.
+However,
+predictive clustering approach provides the necessary tools
+for dealing with exponential growth of the average pre-
+diction error [5, 6].
+First, predictive clustering utilizes motifs, repeated se-
+quences of data in a series. If a section of a time series
+resembles an initial part of a motif “closely enough,” it is
+likely that the subsequent points of the series will closely
+match the subsequent points of the motif, thus enabling the
+use of motifs for forecasting the time series at hand. Motifs
+can be obtained by clustering vectors of observations and
+calculating their centers. It should be noted that whereas
+most available prediction methods attempt to construct
+a single unifed prediction model, the motifs provided by
+predictive clustering form a set of local prediction models.
+Second, Gromov and Borisenko [6] proposed using
+generalized z-vector templates, vectors of nonsuccessive
+observations, which are spaced out according to some
+predefned pattern. A pattern is a vector of distances between
+positions of series observations. Te resulting vector gen-
+eralizes a conventional z-vector (successive observations),
+which corresponds to a pattern (1,1,...,1) L − 1 times.
+Figure 1 demonstrates a z-vector constructed according to
+a pattern k1,k2,...,kL−1,ki ∈N.

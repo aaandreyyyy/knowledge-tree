@@ -1,0 +1,881 @@
+This paper introduces several novel strategies for multi-step-ahead
+prediction of chaotic time series. Introducing a concept of
+“generalized z-vectors” (vectors of nonsuccessive time series
+observations) makes it possible to generate sets of possible
+prediction values for each point we are trying to predict.
+Through examining these sets, unifed predictions are calculated,
+which are in turn used as a basis for predicting subsequent points.
+The key diference between the strategy presented in this paper and
+its conventional counterparts is the concept of
+“nonpredictable” points (points which the algorithm categorized
+as “incalculable” and excluded from the calculations altogether).
+The results obtained for the benchmark and real-world time
+series indicate that while typically the number of nonpredictable points
+tends to grow exponentially with the number of steps ahead
+to be predicted, the average error for predicted points remains
+small and nearly constant. Thus, we redefine the problem of
+multi-step-ahead prediction as a two-objective optimization
+problem: on one hand, we aim to minimize the number of nonpredictable
+points and the average error among the predictable ones.
+The resulting strategy demonstrates accurate results for both
+benchmark and real-world time series, with the number of predicted
+steps exceeding that of any other published algorithm.
+Introduction
+There are countless examples of chaotic systems in the world,
+which is evidenced by the constantly increasing number of chaotic
+time series forecasting algorithms. However, while those dealing
+with one-step-ahead prediction demonstrate remarkable eficiency
+REFERENCE_1, their multi-step-ahead prediction counterparts are
+still in their infancy. This may be attributed to the exponential growth
+of an average prediction error with increasing prediction horizon
+(the number of steps ahead to be predicted).
+This exponential growth refects Lyapunov instability,
+inherent to any chaotic system. According to the defnition of Lyapunov
+instability, any initial diference between any two neighboring
+trajectories, however small, grows exponentially over time; its
+exponent equals to the highest Lyapunov exponent VARIABLE_1 REFERENCE_2 REFERENCE_3.
+Lyapunov instability leads to another concept, that of the horizon
+of predictability, sometimes referred to as “Lyapunov time” REFERENCE_4.
+For a given observational error VARIABLE_2 and the maximum
+prediction error VARIABLE_3, the aforementioned exponential growth satisfes
+the constraint FORMULA_1, where FUNCTION_1 represents error at the
+moment VARIABLE_4 and VARIABLE_1, the highest Lyapunov exponent (which is positive
+for chaotic time series and negative for the non- chaotic ones).
+ε(t) ≤ εmax gives an estimated horizon of predictability
+T ∼ 1/λ lnεmax /ε(0) [2, 3]. In the context of the multi-step-ahead
+prediction, it follows that the smallest diference between true and
+predicted values at any in- termediate position between the last
+observable point and the point to be predicted triggers an exponential
+error growth in all subsequent points, regardless of the employed
+prediction method. It should be noted that the horizon of predictability should
+not be confused with the prediction horizon, the former being
+a theoretical upper boundary for the number of steps to be predicted
+(given ε(0) and εmax), and the latter being simply the number steps to
+be predicted. Most of the time, the prediction horizon h is signifcantly
+less than the horizon of predictability T: h ≪ T.
+However,
+predictive clustering approach provides the necessary tools
+for dealing with exponential growth of the average pre-
+diction error [5, 6].
+First, predictive clustering utilizes motifs, repeated se-
+quences of data in a series. If a section of a time series
+resembles an initial part of a motif “closely enough,” it is
+likely that the subsequent points of the series will closely
+match the subsequent points of the motif, thus enabling the
+use of motifs for forecasting the time series at hand. Motifs
+can be obtained by clustering vectors of observations and
+calculating their centers. It should be noted that whereas
+most available prediction methods attempt to construct
+a single unifed prediction model, the motifs provided by
+predictive clustering form a set of local prediction models.
+Second, Gromov and Borisenko [6] proposed using
+generalized z-vector templates, vectors of nonsuccessive
+observations, which are spaced out according to some
+predefned pattern. A pattern is a vector of distances between
+positions of series observations. Te resulting vector gen-
+eralizes a conventional z-vector (successive observations),
+which corresponds to a pattern (1,1,...,1) L − 1 times.
+Figure 1 demonstrates a z-vector constructed according to
+a pattern k1,k2,...,kL−1,ki ∈N, whereas Figure 2 illustrates
+the way z-vectors are clustered into motifs and also how
+motifs are used for obtaining predictions. Te process of
+generating z-vectors can be visualized as placing a “comb”
+with L teeth spaced out according to some pattern, with all
+the other teeth “broken of.” While moving the “comb” along
+the series, we can obtain a vector of observations under the
+teeth of the “comb” (yt,yt+k1,...,yt+k1+...+kL−1) for each
+position t. Each pattern k1,k2,...,kL−1,ki ∈N has its own
+set of such vectors (the sample corresponding to a given
+pattern). Each such a sample is then clustered separately.
+Tis approach obtains a set of possible values for each point
+to be predicted. Each set is comprised of predicted values
+obtained using motifs corresponding to diferent templates.
+Since the number of patterns can be arbitrarily large, so can
+sizes of sets of possible prediction values for points we are
+trying to predict. Despite the fact that points in those sets are
+not always statistically independent, a great deal of algo-
+rithms determining a unifed predicted value based on these
+sets can be designed.
+Tird, the concept of nonpredictable points can be ex-
+tended. However, previously a point was considered to be
+nonpredictable if it did not have corresponding motif(s), and
+now it can also be considered nonpredictable if it is impossible
+to calculate a unifed predicted value for this particular point
+based on its set of possible prediction values. An example of the
+latter would be a point which set of possible prediction values
+consists of two equally-sized clusters with diferent centers.
+Present work introduces a novel concept of nonpredictable
+points that the authors have not yet encountered in any lit-
+erature on the topic. It should be noted that while in our
+previous paper, we employed only the former type of non-
+predictable points, but we use both in this one.
+Introduction of a concept of non-predictable points
+renders the problem two-objective: on one hand, we have to
+minimize the total number of non-predictable points, and on
+the other, the average error among the predictable ones.
+Discarding some of points as nonpredictable has proven to
+have a positive efect on the results, and it is better for the
+algorithm to skip some of the points rather than force
+a prediction at each point. Tis approach is actually quite
+natural in some areas: for example, stock market traders do
+not have to make trades at every single moment in time, as
+they could simply choose the moments that the algorithm
+had recognized as predictable.
+Furthermore, since the patterns k1,k2,...,kL−1,ki ∈N
+with distance d � kL−1 − kL−2 >1 exist, the fact that the point
+at position t is nonpredictable does not imply that the points
+at subsequent positions t + 1,t + 2,... will be non-
+predictable as well. Tis is fundamentally important for the
+multi-step-ahead prediction: if a point t + h needs to be
+predicted, iterative strategy would be used (or rather its
+modifcations based on nonsuccessive observations).
+Namely, the intermediate values between points t and t + h
+are predicted step-by-step, with nonpredictable points being
+identifed along the way and ignored.
+In the context of dynamic systems [2, 3], each cluster of
+vectors (which by defnition represent similar sections of
+a trajectory) corresponds to a particular area of a strange
+attractor. Areas with a high value of an invariant measure are
+associated with larger clusters (i. e., more frequently ob-
+served motifs), and vice versa. Te number of clusters in-
+creases with the size of their respective training set, whereas
+the number of nonpredictable points and the average error
+among the predictable ones decrease. A large-scale simu-
+lation for the Lorenz series [7] supports this conclusion.
+In conclusion, however, the algorithm does not calculate
+a prediction for each point (thus the word “partial” in the
+title), it does make predictions up to the horizon of pre-
+dictability (sometimes even surpassing it). Te paper pres-
+ents several methods of identifying nonpredictable points
+and corresponding strategies for the multi-step-ahead
+prediction, as well as examples of partial predictions be-
+yond the horizon of predictability, for the benchmark and
+real-world time series.
+Te rest of the paper is organized as follows:
+(i) Section 2 reviews recent advances in the feld
+(ii) Section 3 formally states the problem
+(iii) Section 4 outlines the employed clustering tech-
+nique and ways of identifying nonpredictable points
+and calculating predictions
+(iv) Section 5 provides the results for predicting the
+Lorenz series and hourly electric grid load values in
+Germany
+(v) Section 6 contains conclusions
+2. Related Works
+Most of the recently published papers discussing chaotic
+time series prediction [1, 6, 8–11] concern themselves only
+with the one-step-ahead prediction problem, whereas the
+number of papers tackling the problem of multi-step-ahead
+prediction (MSAP) is considerably lower.
+2 Complexity
+An MSAP algorithm for chaotic time series consists of
+two parts, which are equally responsible for the accuracy of
+the fnal prediction. Te frst part is a technique used to make
+one- or few-steps-ahead predictions, whereas the second one
+“assembles” the results of the previous part into a fnal multi-
+step-ahead prediction.
+Algorithms used to make a one-step-ahead prediction
+employ nearly all felds of data mining and machine
+learning, such as
+(i) Support vector regression and its modifcations [9]
+(ii) Multilayer perceptron [12]
+(iii) Clustering algorithms in predictive clustering
+[13–16]
+(iv) LSTM neural networks [10]
+(v) Voronoi diagrams [17]
+(vi) Ridge polynomial neural networks [18]
+(vii) Wavelet neural networks [19, 20]
+(viii) Dilated convolution networks [21]
+Another factor of fundamental importance is a strategy
+that “assembles” one-step-ahead predictions into a multi-
+step-ahead one. It involves two basic strategies of MSAP, the
+iterated (recursive) and direct strategies [22, 23]. Te iterated
+one implies that multi-step-ahead prediction is a process
+carried out step-by-step: new predicted values are calculated
+based on the predictions made in the previous steps. Teyt
+yt
+yt+k1+k2+k3+k4
+yt+k1+k2+k3
+yt+k1+k2yt+k1
+t
+35302520151050
+k1
+k2
+k3
+k4
+1.0
+0.8
+0.6
+0.4
+0.2
+0.0
+Figure 1: A sample z-vector (yt,yt+k1,yt+k1+...+kL−1) concatenated
+for a pattern k1,...,kL−1,ki ∈N.I
+-w(
+-
+,-w(
+,I
+x1©tP
+x1©tP
+I-- I(- “-- “(- z-- z(-
+t
+”-- ”(- (-- ((- )--
+If--Ix(-Ix--I)(-I)--I((-I(--
+t
+I
+-w(
+-
+,-w(
+,IIz-- Iz(- I”-- I”(-
+Figure 2: Representation of the way the algorithm fnds similar sections
+in a series (top), clusters them (middle), and uses the center of the
+obtained cluster to make predictions for the test set (bottom).
+Complexity 3
+direct strategy aims for getting the results immediately
+without calculating predicted values for intermediate posi-
+tions. Tis strategy applies prediction techniques for various
+prediction horizons, thereby providing multiple predictions
+for any position to be predicted. Ben Taieb et al. [22] review
+diferent methods based on these two basic strategies.
+Sangiorgio and Dercole [10] apply both strategies with
+multilayer perceptrons and LSTM nets employed as tools to
+make one-step-ahead predictions.
+Unfortunately, MSAP methods designed in the afore-
+mentioned strategies sufer from the same exponential error
+growth, thus giving rise to a number of hybrid strategies
+aiming to resolve it. In their review, Ben Taieb et al. [8]
+compare the two basic and three novel strategies (DirRec,
+MIMO, and DIRMO). DirRec (Direct + Recursive) com-
+bines the two basic strategies and uses the direct approach to
+predict values with the number of inputs being enlarged
+iteratively to include values of the most recently predicted
+positions. When it comes to MIMO (multiple input multiple
+output) strategy [24, 25], an array of values is produced for
+the positions between the observed values and a prediction
+horizon (inclusively). Tis reveals any correlations the time
+series may have and allows them to be stored within pre-
+dicted values.
+DIRMO (DirRec + MIMO) strategy divides the series
+(up to some prediction horizon) into chunks and applies
+MIMO strategy to each chunk separately. Te authors test
+these fve strategies on a reasonably large sample of diferent
+time series (NN5 competition), which refects various ir-
+regularities inherent to time series. Bao et al. [9] compare
+efciency of the iterated, direct, and MIMO strategies by
+performing a one-step-ahead prediction using a modifed
+support vector regression. According to the authors, the
+MIMO strategy compares favourably with the other two (all
+other factors being equal).
+Chaotic time series prediction methods that rely on
+reservoir computing would mark a diferent approach
+[26, 27]. Canaday et al. indicate that the method demon-
+strates excellent results for small prediction horizons;
+however, their performance worsens greatly when applied to
+larger horizons [28].
+Multiple-task learning can be viewed as a strategy of its
+own for multi-step-ahead prediction. Chandra et al. [12]
+propose an algorithm to determine a neural network
+structure to solve MSA prediction problems; their approach
+can be considered a combination of the direct and iterated
+strategies. Wang et al. [29] utilise a neural model in order to
+combine periodic approximations for longer periods and
+machine learning models for the shorter ones. Tis could be
+viewed as a separate strategy when dealing with data with
+a marked periodicity. Ye and Dai [11] employ multitask
+learning for multistep prediction. Kurogi et al. [17] make use
+of an out-of-bag model for selecting models for multistep
+prediction. Te authors aim at predicting chaotic series as far
+as possible (the largest possible prediction horizon), whereas
+retaining reasonable accuracy. Te authors present their
+results for the Lorenz series.
+Te importance of being able to make accurate pre-
+dictions up to an increasing number of steps was named
+“Run for the Horizon” by the authors of the current paper in
+one of their previous publications [7]. Te series of works by
+Sangiorgio et al. [10, 30] (that culminated in a monograph
+
+[25] in 2021) approach multi-step-ahead forecasting by
+using neural networks, classic feed-forward, and recurrent
+architectures (LSTM) nets. Te latter are traditionally
+trained with a supervisor, thus forcing the algorithm the
+speed up the convergence of the optimization. Te authors
+managed to make adequate predictions up to six Lyapunov
+times on the benchmark series (logistic and H ́enon maps as
+well as two generalized H ́enon maps). Even though the
+authors did manage to considerably delay the exponential
+error growth, they failed to avoid it completely; the results
+indicate that after six Lyapunov times the error starts to
+increase exponentially. It should also be noted that the
+predictions achieved in [31], which relied on reservoir
+computing with the data calculated by the integration of the
+Lorenz-96 model, are similar in terms of prediction
+intervals.
+To summarize, none of the aforementioned strategies are
+immune to the exponential growth of an average prediction
+error with an increasing prediction horizon. Te present
+paper discusses a few novel strategies with the main dif-
+ference from their classical counterparts being the concept of
+nonpredictable points and an ability not to take into account
+clearly erroneous predictions at intermediate positions [6],
+thus weakening the exponential nature of the growth rate.
+3. Problem Statement
+Tis paper deals with an h-steps-ahead prediction for
+a chaotic time series Y � y0,y1,...,yt,...􏼈 􏼉,h>0 ∈N. We
+assume that all transient processes are completed, and that
+the series itself refects the movement of a trajectory in the
+neighborhood of a strange attractor. Te third assumption is
+that the series meets the conditions of the Takens’ theorem
+(which makes the analysis of the attractor structure based on
+the series observations possible) [2, 3].
+We divide the series into two parts: Y1 � Y1(t) �
+y0,y1,...,yt􏼈 􏼉, the observable part used as a training set,
+and the test set Y2 � Y2(t) � yt+1,yt+2,...,yt+h,...􏼈 􏼉,
+Y � Y1 ∪Y2,Y1 ∩Y2 � ∅. When the algorithm makes
+a prediction at a position t + h of the test set, is has access to
+observations [yt−s+1,yt−s+2 ...,yt]; however, it does not
+have any information on observations [yt+1,yt+2,...yt+h−1].
+Tus, 􏽢yt+h � 􏽢yt+h( yt,yt−1 ...,yt−s+1􏼈 􏼉), where s is a param-
+eter of the algorithm.
+Predictive clustering algorithms and a large number of
+used patterns make it possible to construct a set of possible
+predicted values 􏽢St+h � 􏽢y(1)
+t+h,..., 􏽢y(Nt+h)
+t+h􏽮 􏽯 for each point to
+be predicted, where Nt+h is the number of possible predicted
+values calculated by the algorithm and y(i)
+t+h,i � 1..Nt+h is the
+i-th predicted value. A set 􏽢S(p)
+t+h � 􏽢St+1,...,􏽢
+St+h􏽮 􏽯 is com-
+prised of all sets of possible predicted values for the points
+[yt+h−p,yt+h−p+1,...,yt+h], where p indicates the type of
+algorithm employed (usually p is equal to 1 or h). For p � 1,
+􏽢Spt+h consists of sets of possible predicted values for the point
+4 Complexity
+yt+h exclusively; for p � h, it consists of sets of possible
+predicted values for the points [yt,yt+1,...,yt+h]. We de-
+note the algorithm that constructs sets of possible predicted
+values 􏽢St+h as fh: 􏽢
+St+h � fh( yt,...,yt−s+1􏼈 􏼉).
+Te concept of nonpredictable points implies that two
+operators are applied to the set 􏽢
+S(p)
+t+h. Te frst checks if
+a position is predictable:
+ζ 􏽢S(p)
+t+h􏼒 􏼓 � 1, if position is predictable,
+0, otherwise,􏼨 (1)
+where ζ(∅) � 0 for any function ζ.
+Te second operator determines a unifed predicted
+value for a set of possible predicted values (provided the
+position is predictable):
+􏽢yt+h � g 􏽢S(p)
+t+h􏼒 􏼓. (2)
+Using these two operators, we can defne the multi-step-
+ahead prediction process as a twofold optimization problem:
+I1 � 􏽘
+t+h∈Y2
+1 − ζ 􏽢S(p)
+t+h􏼒 􏼓􏼒 􏼓,
+I2 � 1
+Y2
+􏼌􏼌
+􏼌
+􏼌 􏼌
+􏼌
+􏼌
+􏼌 􏽘
+t+h∈Y2
+ζ 􏽢S(p)
+t+h􏼒 􏼓 g 􏽢S(p)
+t+h􏼒 􏼓 − yt+h
+��
+�
+�
+�
+�
+�
+�
+�
+�
+�
+�.
+(3)
+Both functionals sum over all observations of the test set,
+with frst one minimizing the total number of non-
+predictable points and the second one minimizing the av-
+erage error among the predictable ones. Te present paper
+attempts to solve this two-objective problem.
+3.1. Algorithm. Te subsection is organized as follows:
+(i) Te process of generating samples from the time
+series according to predefned patterns
+(ii) Employed clustering techniques
+(iii) Generating sets of possible prediction values
+(iv) Quality measures of identifcation of nonpredictable
+points
+(v) Ways of identifying nonpredictable points
+3.2. Training Set. Te series is assumed to be normalized.
+Patterns (arrays of distances between nonsuccessive ob-
+servations) are used to generate samples. Each pattern is an
+L − 1-dimensional vector of integers (k1,k2,...,kL−1),
+1 ≤kj ≤Kmax, where Kmax is the maximum distance between
+any two consecutive observations in the pattern.
+For example, let us consider a three-point pattern
+(2,3,4). Te frst vector of the corresponding training set
+would be (y0,y2,y5,y9) (the frst z-vector); the next vector
+would then become (y1,y3,y6,y10) and so forth. Te last
+vector of the training set would be (yt−9,yt−7,yt−4,yt) with
+yt being the last observable value of the training set.
+In the context of predictive clustering, the conven-
+tionally used z-vectors comprising successive observations
+have proven to be less efcient than their counterparts
+comprising nonsuccessive observations [6]. We attribute it
+to the fact that vectors of nonsuccessive observations have
+more chances to store information about salient observa-
+tions (minima, maxima, tipping points, etc.) and correla-
+tions between them.
+A set of all combinatorically possible patterns
+א(L,Kmax) is used for generating training sets. Each set is
+generated separately, according to corresponding pat-
+tern α א∈(L,Kmax). Vectors from these training sets can
+be used either “as-is” (i.e,. each vector is treated as
+a separate motif), or they can be clustered frst, with the
+center of each of the formed clusters becoming a motif of
+its own.
+We denote a set of motifs corresponding to the pattern
+α � (kα
+1,kα
+2,...,kα
+L−1),α א∈(L,Kmax) as
+Ψα � Cα􏼈 􏼉,Cα � (ηα1,ηα
+2,...,ηα
+L). Te obtained motifs can
+only be used with the pattern α. Te set of all motifs is
+denoted as Ψ� (α,Ψα)􏼈 􏼉,α א∈(L,Kmax).
+3.3. Clustering Technique. As a trajectory moves repeatedly
+through the same area of a strange attractor, similar re-
+curring sequences of values associated with that particular
+area can be observed in the trajectory’s time series.
+Centers of clusters of sequences associated with diferent
+areas of the attractor serve as simplest prediction models
+for the respective areas of the attractor [14]. We used the
+clustering method outlined below to cluster sequences of
+observations. We employ a modifed version of the
+Wishart clustering technique [32, 33] developed by Lapko
+and Chentsov [34]. It uses graph theory concepts and
+a nonparametric probability density function estimator of
+r-nearest neighbors. Some of the difculties associated
+with the application of this algorithm to forecasting are
+discussed in [6].
+A signifcance value of a point x is defned as
+p(x) � r/Vr(x)n, where Vr(x) and dr(x) are the volume
+and the radius of a minimum-size hypersphere containing at
+least r observations, centered at point x (n is the number of
+sample vectors). Te method relies on a proximity graph
+G(Zn,Un), vertices of which correspond to samples and
+edges defned as Un � (xi,xj): d(xi,xj) ≤dr(xi),i≠j􏽮 􏽯.
+G(Zq,Uq) is a subgraph of G(Zn,Un) with a vertex set Zq �
+xj,j � 1..q􏽮 􏽯 and an edge set comprised of all edges of Un in
+a such a way that its vertices belong to Zq. Let w(xq) be
+a cluster number label of xq. A cluster cl,l>0 is said to be
+height-signifcant with respect to the height value μ >0 if
+maxxi,xj∈cl |p(xi) − p(xj)|􏽮 􏽯≥μ Algorithm 1.
+Tus, the algorithm consists of the following steps:
+After performing large-scale simulations for diferent
+parameter values, we determined the best values of rand μ to
+be 11 and 0.2, respectively.
+Complexity 5
+3.4. Sets of Possible Predicted Values. We consider a set of
+motifs Ξα for each pattern α א∈(L,Kmax),α �
+(kα
+1,...,kα
+L−1) and construct a set of possible prediction
+values 􏽢Sp,α
+t+h associated with the pattern α. Namely, we
+compose a vector of time series observations corresponding
+to the pattern α: C � (yt+h−kαL−1 ,yt+h−kα
+L−1−kα
+L−2 ,...,
+yt+h−kα
+L−1−kα
+L−2−...−kα
+1 ) for a position t + h we are trying to
+predict (all elements of C are assumed to be either observed
+or predicted in the previous step(s)). Te next step is to
+calculate the Euclidean distance dbetween Cand a truncated
+motif Cα,trunc,Cα ∈Ξα, a vector comprised of all elements of
+a motif except for the last one, Cα,trunc � (ηα1,...,ηα
+L−1) for
+Cα,trunc � (ηα
+1,...,ηα
+L). If d<ε (where ε is a parameter of the
+algorithm) then the last element of the motif Cα becomes
+a possible predicted value at the position t + h. Tus, the set
+of possible predicted values at position t + h for pattern α is
+defned as 􏽢Sp,α
+t+h � ηαL−1: ρ(Cα,trunc) ≤ε􏽮 􏽯.
+In turn, a set of sets of possible predicted values cor-
+responding to all patterns 􏽢S(p)
+t+h becomes a union of sets 􏽢S(p,α)
+t+h
+and can be defned as 􏽢S(p)
+t+h � ∪αא∈􏽢S(p,α)
+t+h . Finally, unifed
+prediction value 􏽢yt+h is calculated as a function of 􏽢S(p)
+t+h.
+Previously predicted intermediate positions 􏽢yt+i are used as
+inputs for the new iterations of the algorithm until a pre-
+diction horizon h is reached. Let us label each distinct it-
+eration as a “prediction step.” Performing the prediction step
+repeatedly produces an operator fh: 􏽢St+h � fh( yt,...,yt−s+1􏼈 􏼉),
+which yields a set of possible predicted
+values for position t + h. Te size of the set is directly pro-
+portional to the number of employed patterns. It allows for an
+implementation of algorithms for determining the fnal, unifed
+predicted value at t + h as well as identifying nonpredictable
+points. Tese algorithms are discussed later in the paper.
+In addition to the set of possible prediction values 􏽢S(p)
+t+h,
+we can calculate a set of weights Ωt+h � ωit+h􏼈 􏼉,i � 1..Nh,
+which characterizes comparative signifcance of individual
+possible prediction values 􏽢yit+h. Alternatives presented below
+can be used to determine weights.
+Te frst technique relies on the notion of a “reliability”
+of individual intermediate predictions, used to calculate 􏽢yi
+t+h.
+Each prediction step results in a greater error of the fnal
+prediction at position t + h. Tus, in order to ofset this error
+growth, we can assign a weight to an element of a sets of
+possible predicted values based on the number of prediction
+steps made in order to calculate it. We assign weights ωi � 1
+to observed values (thus indicating that they are 100% re-
+liable). Given a possible prediction value 􏽢yit+h (either at the
+fnal point i � t + h or intermediate points t<i<t + h),
+calculated based on preceding points yt+h−kα
+L−1 ,yt+h−kα
+L−1−kα
+L−2 ,
+...,yt+h−kαL−1−...−kα
+1(predicted or observed) with corre-
+sponding weights ωt+h−kα
+L−1−...−kα
+1using a pattern
+α � (kα
+1,...,kα
+L−1), the weight of 􏽢yit+h is calculated as an
+average of weights of the preceding points of α times a step-
+down factor λ:
+ωi
+t+h � λ 1
+L − 1 􏽘
+L−1
+l�1
+ωt+h−􏽐l
+j�1kαj
+. (4)
+Te step-down factor λ ensures that predicted points re-
+ceive a progressively smaller weight compared to the observed
+and earlier predicted points. We typically used λ � 0.99. We
+used the average weight of those possible predicted values that
+were used to calculate the unifed predicted value in order to
+calculate the weight of this unifed predicted value (either at the
+fnal of intermediate points).
+determine dr(xq) � distance to the sample’s r-nearest neighbor;
+sort dr(xq) in ascending order;
+q � 1;
+for each subgraph G(Zq,Uq):
+while q≤n:
+xq � newly added vertex of the subgraph;
+if xq is not connected to any clusters:
+start new cluster;
+else:
+if xq connected to the vertices of clusters c1,c2,...,cl,l≥1:
+if all clusters are completed:
+w(xq) � 0;
+else:
+k(μ) � number of signifcant clusters;
+if k(μ) >1 or c1 � 0:
+w(xq) � 0;
+label signifcant clusters as completed;
+delete labels of insignifcant clusters;
+else:
+merge clusters c2,...,cn into c1;
+w(xq) � c1;
+set w(xi) � c1 for samples in c2,...,cn;
+q � q + 1;
+ALGORITHM 1: Te Wishart clustering algorithm.
+6 Complexity
+Te second technique considers ωi to be inversely
+proportional to the distance between observed values and
+the motif chosen for the prediction:
+ωi
+t+h � ε − ρ C,Cα
+trunc( 􏼁
+ε , (5)
+where ε is a small threshold (typically equal to 0.05 for the
+purposes of the current simulation).
+Te third approach calculates ωi as a product of the
+results of the previous two methods.
+3.5. Unifed Predicted Value. Te method of calculating
+a unifed predicted value (UPV) depends on whether the
+algorithm’s parameter p � 1 or p>1. If it is, the UPV is
+calculated based solely on the set of possible prediction
+values associated with the current position:
+􏽢yt+h � g(􏽢S(p)
+t+h) ≡g(􏽢St+h). Tere are several techniques that
+can be used to extract UPV from 􏽢St+h:
+(1) [avg] Averaging over 􏽢
+St+h: 􏽢yt+h � 1/Nt+h􏽐Nt+h
+i�1􏽢yit+h.
+(2) [wavg] Taking a weighted average of 􏽢St+h:
+􏽢yt+h � 1/􏽐Nt+h
+j�1 ωj􏽐Nt+h
+i�1ωi􏽢yit+h.
+(3) [clc] Clustering 􏽢St+h using the DBSCAN algorithm
+and selecting center of the largest cluster Qj∗: 􏽢
+St+h �
+∪jQj, Qi ∩Qj � ∅,qj � |Qj|,j∗� argmaxj(qj).
+DBSCAN [35] demonstrates good performance for
+one-dimensional data and was deemed acceptable
+for the task. Te exact value of the UPV in this case is
+􏽢yt+h � 1/|Qj∗|􏽐􏽢y(i)
+t+h∈Qj∗
+􏽢y(i)
+t+h.
+(4) Clustering only elements of 􏽢St+h with weights ex-
+ceeding some threshold ω0.
+(5) Two previous techniques can be applied to fuzzy sets.
+Normalized weights can be viewed as values of
+a membership function that indicates belonging to
+a set of possible predicted values.
+(6) Clustering 􏽢St+h and picking the center of a randomly
+chosen cluster based on the sum of weights of its
+elements relative to the sum of weights of all possible
+prediction values (roulette wheel).
+(7) [mf] Choosing the mode of 􏽢St+h.
+(8) [mfp] Choosing the mode of 􏽢
+St+h and adding a small
+amount of uniformly distributed noise to it:
+􏽢yt+h � 1/|Qj∗|􏽐􏽢y(i)
+t+h∈Qj∗
+􏽢y(i)
+t+h + ζ(Δ), where ζ(∆) is
+a normally distributed random variable with zero
+mean and variance ∆≥0.
+In the case when p>1, we introduce a concept of
+a “prediction trajectory” (a sequence of possible prediction
+values for every position from t to t + h). Let us denote an s-th
+possible prediction trajectory (PPT) as 􏽢ξ(s)
+t+h � (􏽢y(s)
+t+1,..., 􏽢y(s)
+t+h)
+with 􏽢ξ(s)
+t+h(i) � 􏽢y(s)
+t+i being its value at i-th position and Smax
+being the maximum number of trajectories. Ten the set of all
+PPTs ending at position t + h would be defned as 􏽢Ξt+h, with
+􏽢Ξt+h(i) being a set of values of its trajectories at position i.
+Naturally, 􏽢St+h ≡􏽢Ξt+h(h) Algorithm 2.
+Base prediction algorithm:
+We have employed several diferent ways of calculating
+possible prediction trajectories:
+(1) [trp] Randomly perturbed trajectories, where a UPV
+is calculated for each intermediate position using
+technique number 8.
+(2) Starting a new trajectory at the center of each cluster
+of 􏽢St+h, thus making the total number of trajectories
+increase exponentially with the number of steps (a
+garden of forking trajectories).
+(3) Starting a new trajectory at the center of each cluster
+of 􏽢St+h and assigning a weight to each trajectory as
+a product of the weights of its individual points;
+trajectories with weights lower than a certain
+threshold are fltered out at each step of the iteration
+and do not form new trajectories.
+Regardless of the technique used, the UPV is calculated
+as an average of the last points of all trajectories
+from the set􏽢Ξt+h: 􏽢yt+h � 1/Smax􏽐Smax
+j�1 􏽢ξj
+t+h(h). Based on the results of the
+research, the frst technique proved to be the most
+efcient one.
+3.6. Quality Measures of Identifcation of Nonpredictable
+Points. Determining whether a point is predictable or not
+relies on either its set of possible prediction values or its set
+of prediction trajectories. For each prediction horizon h, we
+may consider the following set:
+NP(t,m,h) � (t + i: t + m≤t + i≤t + h) & yt+i ∈Y2&ζ 􏽢S(p)
+t+i􏼒 􏼓 � 0􏼒 􏼓􏼚 􏼛. (6)
+A set of nonpredictable points at intermediate positions
+is defned as NIP(t,h) � NP(t,1,h). A full set of all non-
+predictable points from the test set is defned as follows:
+NP(h) � ∪t+h: yt+h∈Y2NP(t,h,h) ≡ t + h: yt+h ∈Y2&ζ 􏽢Spt+i􏼐 􏼑 � 0􏽮 􏽯. (7)
+Complexity 7
+In other words, this is a set of all positions that the
+algorithm failed to produce a prediction value for. It should
+be said that a point becomes nonpredictable if any of the
+following cases are true:
+(1) Its set of possible predicted values is empty
+(2) It is impossible to calculate a unifed prediction value
+based on its set of possible predicted values
+Tese sets rely heavily on the specifc one-step-ahead
+prediction algorithm used, the value of, and the technique of
+identifying nonpredictable points. In order to develop
+evaluation criteria for algorithms identifying nonpredictable
+points, we need to consider two extreme cases:
+(1) Not identifying nonpredictable points at all (the
+algorithm always uses the closest available motif);
+(2) Assuming that the algorithm possesses a priori in-
+formation about the actual values at intermediate
+positions. Te point is marked as nonpredictable if
+the diference between the predicted and actual
+values d≥ε. It is worth noting that the algorithm
+does not replace its predictions with the true values:
+it simply excludes clearly erroneous predictions from
+the following prediction operations instead. In our
+internal team’s slang, this algorithm is named “the
+daemon”, Socrates is known to have had his own
+daemon, who gave him advice in his most painful
+situations.
+Remaining points comprise a set of ground-truth
+nonpredictable points for a given algorithm. We can cre-
+ate a set
+GTNP(t,m,h) � t + i: (t + m≤t + i≤t + h)& yt+i ∈Y2( 􏼁& ρ yt+i, 􏽢yt+i( 􏼁≥ε( 􏼁􏼈 􏼉, (8)
+for each point t + h that we are predicting, where 􏽢yt+i �
+g(􏽢S(p)
+t+i ) is the unifed prediction value of the set of possible
+prediction values 􏽢S(p)
+t+i . Consequently, the set of positions that
+the algorithm failed to make a prediction for is defned as
+follows:
+GTNP(t,h) � GTMP(t,1,h)
+� t + i: (t + 1 ≤t + i≤t + h)& yt+i ∈Y2( 􏼁& ρ yt+i, 􏽢yt+i( 􏼁≥ε( 􏼁􏼈 􏼉. (9)
+Also, the set of nonpredictable points as follows:
+(1) procedure Base prediction (Y1,h)
+(2) ε⟵0.01
+(3) normalize observations Y1
+(4) t←index of last known observation
+(5) for i⟵1..h do
+(6) for αεא(L,kmax) do, α � (k(α)
+1,...,k(α)
+L−1)
+(7) for l⟵1..L do
+(8) η(α)
+l ⟵yt−k(α)
+L−1−...−k(α)
+L−i+1
+(9) end for
+(10) Cα⟵(η(α)
+l ,...,η(α)
+L )
+(11) C⟵(yt+h−k(α)
+L−1−...−k(α)
+1
+,yt+h−k(α)
+L−1−...−k(α)
+2
+,...,yt+h−k(α)
+L−1
+)
+(12) Trunc(Cα)⟵(η(α)
+l ,...,η(α)
+L )
+(13) if ρ(C,Trunc(Cα)) <ε then, ρ—Euclidian distance
+(14) add η(α)
+L to 􏽢St+i
+(15) end if
+(16) end for
+(17) if point t + i is predictable then
+(18) calculate 􏽢yt+h using corresponding algorithm
+(19) end if
+(20) end for
+(21) end procedure
+ALGORITHM 2: Te prediction procedure.
+8 Complexity
+GTNIP(t,m,h) � t + i: (t + m≤t + i≤t + h)& yt+i ∈Y2( 􏼁& ρ yt+i, 􏽢yt+i( 􏼁≥ε( 􏼁􏼈 􏼉. (10)
+Ten, the set of ground-truth nonpredictable points
+becomes
+GTNP(t,m,h) � ∪t+h:yt+h∈Y2GTNP(t,h,h) ≡ t + h: yt+h ∈Y2( 􏼁& ρ yt+i, 􏽢yt+i( 􏼁≥ε( 􏼁􏼈 􏼉. (11)
+Simulations reveal that the second case is almost com-
+pletely independent of the threshold value ε. Naturally,
+“real” algorithms do not possess a priori information about
+actual values at intermediate positions yt+i, since they deal
+only with either sets of possible predicted values 􏽢S(p)
+t+i or sets
+of predicted trajectories 􏽢Ξt+i. Nevertheless, this method of
+identifying nonpredictable points is useful for determining
+a lower boundary of the prediction error. Methods of
+identifying nonpredictable points should be developed in
+such a way as to approximate this boundary as closely as
+possible. In the team’s internal slang, we referred to them as
+“approximating the daemon.”
+Graphs in the Figure 3 exemplify dependences of the
+number of nonpredictable points (Figure 3(a)) and the
+average error on predictable points (Figure 3(b)) on the
+prediction horizon h for the two extreme cases. Te blue
+curves correspond to the frst extreme case (intermediate
+nonpredictable points are not identifed at all), and orange,
+to the second (intermediate nonpredictable points are
+identifed with a priori information). It can be seen that in
+the frst case the number of nonpredictable points is equal to
+zero and the prediction error grows exponentially with h.
+Te second extreme algorithm demonstrates the opposite:
+the number of nonpredictable points grows exponentially
+with h, while the prediction error function remains nearly
+constant, bounded, and rather small. It is obvious that the
+frst algorithm minimizes the functional (3), neglecting the
+functional (4); the second one minimizes the functional (4),
+neglecting the functional (3).
+Figures 4(a) and 4(b) display the true values (blue solid)
+and intermediate predicted values (red dashed) for the
+Lorenz series for the frst (Figure 4(a)) and second
+(Figure 4(b)) extreme cases. From the latter subfgure, we
+notice that the second algorithm does not make a prediction
+for all points, while making rather accurate predictions
+where it “decides” to predict. On the other hand, we notice
+that in the frst case the predicted trajectory diverges from
+the true one just after the point (a green disk in Figure 4(a))
+that is identifed as nonpredictable by the second algorithm,
+the frst algorithm must predict at this point (as with any
+point), and this immediately ruins the MSA prediction
+process, causing the predicted trajectory to diverge from the
+true one.
+Te results of algorithms identifying nonpredictable
+points fall somewhere between these two extreme cases. In
+the context of multi-step-ahead prediction, the second case
+presents more interest since it allows one to make
+a prediction up to a fairly large number of steps ahead. From
+this point, all algorithms discussed are attempt to follow it.
+A large-scale simulation suggests that a forecast algo-
+rithm will be efcient only if its set of identifed non-
+predictable points is sufciently close to the set of ground-
+truth nonpredictable points GTNP(h). Diference between
+the two constitutes an auxiliary quality measure for the
+techniques of identifying nonpredictable points:
+I3 � GTNP(h)
+NP(h)
+􏼌􏼌
+􏼌􏼌􏼌
+􏼌
+􏼌
+􏼌
+􏼌
+􏼌􏼌􏼌
+􏼌
+􏼌∪ NP(h)
+GTNP(h)
+􏼌
+􏼌
+􏼌􏼌􏼌
+􏼌
+􏼌
+􏼌
+􏼌
+􏼌􏼌􏼌
+􏼌
+􏼌. (12)
+Two possible opposite scenarios can be observed: either
+the diference |GTNP(h)/NP(h)| is large whereas the dif-
+ference |NP(h)/GTNP(h)| is small, or vice versa. Te frst
+case corresponds to an overly optimistic algorithm, whereas
+the second, to an overly conservative one.

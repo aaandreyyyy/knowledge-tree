@@ -1,0 +1,13 @@
+{{
+    "entities": [
+        ["multi-step-ahead prediction", [51, 77]],
+        ["chaotic time series", [83, 100]],
+        ["“generalized z-vectors”", [129, 150]],
+        ["“nonpredictable” points", [547, 580]],
+        ["non- chaotic", [820, 833]],
+        ["Lyapunov instability", [780, 799]],
+        ["Lyapunov exponent", [807, 825]],
+        ["highest Lyapunov exponent", [817, 840]],
+        ["horizon of predictability", [904, 926]]
+    ]
+}}
