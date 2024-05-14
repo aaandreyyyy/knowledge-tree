@@ -1,5 +1,5 @@
 import time
-GEMINI_API_KEY = 'AIzaSyAKu9Q7-mhKylp8zZKBwxatsM6IfUmaAPA'
+GEMINI_API_KEY = ''
 
 USE_FULL_PIPELINE = False
 
